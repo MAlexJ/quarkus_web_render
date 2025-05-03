@@ -16,6 +16,6 @@ COPY --from=builder /app/build/quarkus-app/app/ /app/app/
 COPY --from=builder /app/build/quarkus-app/quarkus/ /app/quarkus/
 COPY --from=builder /app/build/quarkus-app/quarkus-run.jar /app/quarkus-run.jar
 
-ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Dquarkus.http.port=${PORT}"
+#ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Dquarkus.http.port=${PORT}"
 
 CMD ["java", "-jar", "quarkus-run.jar"]
