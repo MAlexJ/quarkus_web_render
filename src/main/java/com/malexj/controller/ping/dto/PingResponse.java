@@ -1,4 +1,4 @@
-package com.malexj.controller.dto;
+package com.malexj.controller.ping.dto;
 
 public record PingResponse(String message) {
 

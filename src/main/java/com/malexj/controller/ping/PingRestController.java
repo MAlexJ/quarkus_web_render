@@ -1,6 +1,6 @@
-package com.malexj.controller;
+package com.malexj.controller.ping;
 
-import com.malexj.controller.dto.PingResponse;
+import com.malexj.controller.ping.dto.PingResponse;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HEAD;
 import jakarta.ws.rs.Path;

@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: quarkus-gradle-app
+    name: quarkus-gradle-web-app
     runtime: docker
     branch: main
     plan: free

@@ -9,11 +9,16 @@
 
 ### Project setup
 
-create .env file with properties:
+create `.env` file with properties:
 
 ```
-PORT=8080 (default)
+PORT=8080
 ```
+
+### Render
+
+1. Deploy from public guthub repository
+2. Set up /health endpoint
 
 ### Java code style
 
