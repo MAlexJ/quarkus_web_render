@@ -1,59 +1,59 @@
 # Quarkus web dev for render
 
+##### Description:
 
+* Java 21
+* QUARKUS 3.22.1
+* Gradle 8.13
+* render - hosting service
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+### Project setup
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+create .env file with properties:
 
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-
-```shell script
-./gradlew quarkusDev
+```
+PORT=8080 (default)
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+### Java code style
 
-## Packaging and running the application
+Java code style refers to the conventions and guidelines that developers follow when writing Java code to ensure
+consistency and readability.
 
-The application can be packaged using:
+project: google-java-format,
+link: https://github.com/google/google-java-format/blob/master/README.md#intellij-jre-config
 
-```shell script
-./gradlew build
+### Gradle
+
+#### Gradle Versions Plugin
+
+Displays a report of the project dependencies that are up-to-date, exceed the latest version found, have upgrades, or
+failed to be resolved:
+
+command:
+
+```
+gradle dependencyUpdates
 ```
 
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
+#### Gradle wrapper
 
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
+The recommended way to execute any Gradle build is with the help of the Gradle Wrapper (referred to as "Wrapper")
 
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./gradlew build -Dquarkus.package.jar.type=uber-jar
+```
+./gradlew wrapper --gradle-version latest
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
+#### Gradle ignore test
 
-## Creating a native executable
+To skip any task from the Gradle build, we can use the -x or –exclude-task option. In this case, we’ll use “-x test” to
+skip tests from the build.
 
-You can create a native executable using:
+To see it in action, let’s run the build command with -x option:
 
-```shell script
-./gradlew build -Dquarkus.native.enabled=true
 ```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./gradlew build -Dquarkus.native.enabled=true -Dquarkus.native.container-build=true
+gradle build -x test
 ```
-
-You can then execute your native executable with: `./build/quarkus_web_render-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/gradle-tooling>.
 
 ## Related Guides
 
