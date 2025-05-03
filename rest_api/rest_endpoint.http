@@ -1,2 +1,8 @@
-### PING
+### Ping Pong
 GET http://localhost:8080/api/v1/ping
+
+###
+HEAD http://localhost:8080/api/v1/ping
+
+### BASE Configuration: General health
+GET http://localhost:8080/health
