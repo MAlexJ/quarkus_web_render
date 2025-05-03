@@ -10,11 +10,11 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Copy Quarkus output
-COPY --from=build /app/build/quarkus-app/lib/ /app/lib/
-COPY --from=build /app/build/quarkus-app/*.jar /app/
-COPY --from=build /app/build/quarkus-app/app/ /app/app/
-COPY --from=build /app/build/quarkus-app/quarkus/ /app/quarkus/
-COPY --from=build /app/build/quarkus-app/quarkus-run.jar /app/quarkus-run.jar
+COPY --from=builder /app/build/quarkus-app/lib/ /app/lib/
+COPY --from=builder /app/build/quarkus-app/*.jar /app/
+COPY --from=builder /app/build/quarkus-app/app/ /app/app/
+COPY --from=builder /app/build/quarkus-app/quarkus/ /app/quarkus/
+COPY --from=builder /app/build/quarkus-app/quarkus-run.jar /app/quarkus-run.jar
 
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0"
 
