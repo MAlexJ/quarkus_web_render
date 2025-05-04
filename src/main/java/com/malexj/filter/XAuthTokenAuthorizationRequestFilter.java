@@ -6,30 +6,41 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Response;
 import java.util.Optional;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.server.ServerRequestFilter;
 
 public class XAuthTokenAuthorizationRequestFilter {
 
+  private static final Logger LOG = Logger.getLogger(XAuthTokenAuthorizationRequestFilter.class);
+
   public static final String X_AUTH_TOKEN_HEADER = "X-Auth-Token";
   public static final String WEB_APP_USER_ATTRIBUTE_KEY = "webAppUser";
   public static final String WEB_APP_USER_ID_ATTRIBUTE_KEY = "userId";
 
-  private static final Logger LOG = Logger.getLogger(XAuthTokenAuthorizationRequestFilter.class);
-
   private final WebAppInitDataService service;
 
+  private final String apiPath;
+
   @Inject
-  public XAuthTokenAuthorizationRequestFilter(WebAppInitDataService webAppInitDataService) {
+  public XAuthTokenAuthorizationRequestFilter(
+      @ConfigProperty(name = "quarkus.http.root-path", defaultValue = "/api") String rootPath,
+      WebAppInitDataService webAppInitDataService) {
     this.service = webAppInitDataService;
+    this.apiPath = rootPath;
   }
 
-  /*
-   * todo: refactor method
-   */
   @ServerRequestFilter(priority = 1, preMatching = true)
   public Optional<Response> authHeaderCheck(ContainerRequestContext ctx) {
 
+    var uri = ctx.getUriInfo().getAbsolutePath();
+    if (!uri.getPath().contains(apiPath)) { // Only apply filter to /api/** paths
+      return Optional.empty(); // Skip auth for non-API routes
+    }
+
+    /*
+     * todo: refactor method
+     */
     var thInitDataOpt =
         // Extract the Authorization header
         Optional.ofNullable(ctx.getHeaderString(X_AUTH_TOKEN_HEADER))

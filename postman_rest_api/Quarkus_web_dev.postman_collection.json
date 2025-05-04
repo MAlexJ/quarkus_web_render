@@ -18,12 +18,10 @@
 						"method": "HEAD",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/ping",
-							"protocol": "http",
+							"raw": "{{host}}/api/v1/ping",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -42,12 +40,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/ping",
-							"protocol": "http",
+							"raw": "{{host}}/api/v1/ping",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -69,14 +65,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{tgInitData}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/tasks",
-							"protocol": "http",
+							"raw": "{{host}}/api/v1/tasks",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"v1",
@@ -100,12 +100,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/health",
-							"protocol": "http",
+							"raw": "{{host}}/health",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"health"
 							]
