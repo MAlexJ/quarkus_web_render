@@ -13,6 +13,8 @@ create `.env` file with properties:
 
 ```
 PORT=8080
+APP_SERVICE_TELEGRAM_WEB_APP_SECRET_KEY=___xxx___
+APP_SERVICE_TELEGRAM_BOT_TOKEN=___xxx___
 ```
 
 ### Render
