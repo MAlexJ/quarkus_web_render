@@ -24,15 +24,16 @@ public class WebAppInitDataService {
 
   private static final Logger LOG = Logger.getLogger(WebAppInitDataService.class);
 
-  private final ObjectMapper mapper;
   private final String telegramSecretKey;
   private final String telegramBotToken;
 
+  private final ObjectMapper mapper;
+
   @Inject
   public WebAppInitDataService(
-      ObjectMapper objectMapper,
       @ConfigProperty(name = "webapp.telegram.secret.key") String telegramSecretKey,
-      @ConfigProperty(name = "webapp.telegram.bot.token") String telegramBotToken) {
+      @ConfigProperty(name = "webapp.telegram.bot.token") String telegramBotToken,
+      ObjectMapper objectMapper) {
     this.mapper = objectMapper;
     this.telegramSecretKey = telegramSecretKey;
     this.telegramBotToken = telegramBotToken;
@@ -52,7 +53,7 @@ public class WebAppInitDataService {
       return Optional.ofNullable(parseQueryString(tgInitData).get(USER_KEY))
           .flatMap(this::parseJsonToWebAppUser);
     } catch (Exception e) {
-      LOG.error("Error validating Telegram init data", e);
+      LOG.warn("Error validating Telegram init data", e);
       return Optional.empty();
     }
   }
@@ -61,7 +62,7 @@ public class WebAppInitDataService {
     try {
       return Optional.of(mapper.readValue(json, WebAppUser.class));
     } catch (JsonProcessingException e) {
-      LOG.error("Failed to parse WebAppUser JSON", e);
+      LOG.warn("Failed to parse WebAppUser JSON", e);
       return Optional.empty();
     }
   }
