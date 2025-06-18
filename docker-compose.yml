@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  my-app:
+    image: malexj/quarkus_web_render:latest
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:${PORT}"
+    restart: unless-stopped
