@@ -1,4 +1,4 @@
-version: '3.8'
+name: Quarkus REST app on render
 
 services:
   quarkus-web-render-app:
@@ -9,3 +9,6 @@ services:
     ports:
       - "${PORT}:${PORT}"
     restart: unless-stopped
+    mem_limit: 600m
+    mem_reservation: 400m
+    cpus: 0.75
