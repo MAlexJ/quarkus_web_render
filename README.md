@@ -1,10 +1,11 @@
-# Quarkus web dev for render
+### Quarkus REST app for render
 
 ##### Description:
 
-* Java 21
-* QUARKUS 3.22.1
-* Gradle 8.13
+* Java 24
+* QUARKUS 3.23.3
+* Atlas Mongo db
+* Gradle 8.14.2
 * render - hosting service
 
 ### Project setup
@@ -21,8 +22,8 @@ DB_MONGODB_DATABASE=___xxx___
 
 ### Render
 
-1. Deploy from public guthub repository
-2. Set up /health endpoint
+1. Deploy from public GutHub repository
+2. Set up `/q/health` health endpoint
 
 ### Java code style
 
@@ -64,19 +65,7 @@ To see it in action, let’s run the build command with -x option:
 gradle build -x test
 ```
 
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and
-  Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on
-  it.
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus
-  REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-
-## Provided Code
-
-### REST
-
-#### Endpoints
+#### REST Endpoints
 
 web app port configuration:
 
@@ -118,10 +107,10 @@ GET http://localhost:8080/q/health
 GET http://localhost:8080/q/health/live
 
 ### BASE Configuration: Readiness check
-GET http://localhost:8080q/health/ready
+GET http://localhost:8080/q/health/ready
 ```
 
-Customization:
+#### Customization:
 
 By default, all Quarkus system endpoints are under /q/. To change the health check path:
 
