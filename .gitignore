@@ -1,7 +1,8 @@
 HELP.md
 .env
 .DS_Store
-
+.env-dev
+.env-prod
 
 .gradle
 build/
