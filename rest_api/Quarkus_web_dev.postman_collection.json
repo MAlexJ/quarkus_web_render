@@ -7,55 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "ping",
-			"item": [
-				{
-					"name": "HEAD ping",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "HEAD",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/ping",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"ping"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET ping",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/ping",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"ping"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "tasks",
 			"item": [
 				{
@@ -85,6 +36,43 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Create task",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{tgInitData}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomProductName}}\",\n  \"description\": \"{{$randomJobDescriptor}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -100,11 +88,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/health",
+							"raw": "{{host}}/q/health",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"q",
 								"health"
 							]
 						}

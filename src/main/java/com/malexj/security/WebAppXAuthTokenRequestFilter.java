@@ -31,18 +31,14 @@ public class WebAppXAuthTokenRequestFilter {
   @ServerRequestFilter(priority = 1, preMatching = true)
   public Optional<Response> authHeaderCheck(ContainerRequestContext ctx) {
 
-    if(true){
+    /*
+     *  Apply filter only to /api/** paths, skip auth for non-API routes
+     */
+    var uri = ctx.getUriInfo().getAbsolutePath();
+    if (!uri.getPath().contains(apiPath)) {
       return Optional.empty();
     }
 
-    var uri = ctx.getUriInfo().getAbsolutePath();
-    if (!uri.getPath().contains(apiPath)) { // Only apply filter to /api/** paths
-      return Optional.empty(); // Skip auth for non-API routes
-    }
-
-    /*
-     * todo: refactor method
-     */
     var thInitDataOpt =
         // Extract the Authorization header
         Optional.ofNullable(ctx.getHeaderString(X_AUTH_TOKEN_HEADER))
@@ -57,7 +53,7 @@ public class WebAppXAuthTokenRequestFilter {
 
     LOG.debug("%s: %s".formatted(X_AUTH_TOKEN_HEADER, thInitDataOpt));
 
-    Optional<WebAppUser> webAppUserOpt = service.validateTgInitData(thInitDataOpt.get());
+    var webAppUserOpt = service.validateTgInitData(thInitDataOpt.get());
 
     if (webAppUserOpt.isEmpty()) {
       return Optional.of(
@@ -66,13 +62,12 @@ public class WebAppXAuthTokenRequestFilter {
               .build());
     }
 
-    WebAppUser webAppUser = webAppUserOpt.get();
+    var webAppUser = webAppUserOpt.get();
 
     // Set attributes into request context
     ctx.setProperty(WEB_APP_USER_ATTRIBUTE_KEY, webAppUser);
     ctx.setProperty(WEB_APP_USER_ID_ATTRIBUTE_KEY, webAppUser.id());
 
-    // If everything is good, continue with the request
     return Optional.empty();
   }
 }

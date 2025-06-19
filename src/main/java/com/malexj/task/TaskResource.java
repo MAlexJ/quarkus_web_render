@@ -4,6 +4,7 @@ import static com.malexj.security.WebAppXAuthTokenRequestFilter.WEB_APP_USER_ATT
 import static com.malexj.security.WebAppXAuthTokenRequestFilter.WEB_APP_USER_ID_ATTRIBUTE_KEY;
 
 import com.malexj.security.WebAppUser;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -16,6 +17,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestResponse;
 
+@RunOnVirtualThread
 @Path("/api/v1/tasks")
 public class TaskResource {
 
@@ -36,6 +38,10 @@ public class TaskResource {
     var userId = (Long) context.getProperty(WEB_APP_USER_ID_ATTRIBUTE_KEY);
     LOG.info("User %s (%s) requested tasks".formatted(userId, user));
 
+    LOG.info(
+        "Thread - %s, is virtual - %s"
+            .formatted(Thread.currentThread().getName(), Thread.currentThread().isVirtual()));
+
     return RestResponse.ok(service.findTasks());
   }
 
@@ -46,10 +52,15 @@ public class TaskResource {
 
     var user = (WebAppUser) context.getProperty(WEB_APP_USER_ATTRIBUTE_KEY);
     var userId = (Long) context.getProperty(WEB_APP_USER_ID_ATTRIBUTE_KEY);
-    LOG.info("User %s (%s) requested create task".formatted(userId, user));
+    LOG.info(
+        "User %s (%s) requested create task, thread - %s"
+            .formatted(userId, user, Thread.currentThread().getName()));
+
+    LOG.info(
+        "Thread - %s, is virtual - %s"
+            .formatted(Thread.currentThread().getName(), Thread.currentThread().isVirtual()));
 
     service.createTask(request);
-
     return RestResponse.noContent();
   }
 }
