@@ -18,7 +18,7 @@ COPY --from=builder /app/build/quarkus-app/quarkus-run.jar /app/quarkus-run.jar
 
 #ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Dquarkus.http.port=${PORT}"
 # Set JVM options
-ENV JAVA_OPTS="-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m -Dio.netty.machineId=01:23:45:67:89:ab:cd:ef"
+ENV JAVA_OPTS="-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m -Dio.netty.machineId=01:23:45:67:89:ab"
 
 # Start Quarkus with the configured options
 CMD ["sh", "-c", "java $JAVA_OPTS -jar quarkus-run.jar"]

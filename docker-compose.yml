@@ -3,6 +3,7 @@ version: '3.8'
 services:
   quarkus-web-render-app:
     image: malexj/quarkus_web_render:latest
+    pull_policy: always
     env_file:
       - .env
     ports:
