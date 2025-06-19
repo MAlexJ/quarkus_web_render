@@ -1,5 +1,3 @@
-version: '3.9'                                  # Use the latest stable Compose spec
-
 services:
   quarkus-web-render-app:
     image: malexj/quarkus_web_render:latest
