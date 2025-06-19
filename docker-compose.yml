@@ -1,14 +1,29 @@
-name: Quarkus REST app on render
+version: '3.9'                                  # Use the latest stable Compose spec
 
 services:
   quarkus-web-render-app:
     image: malexj/quarkus_web_render:latest
-    pull_policy: always
+    container_name: quarkus-web-render          # Prevents scaling – see note below
+    pull_policy: always                         # Docker Compose v2.20+ supports this
     env_file:
       - .env
     ports:
-      - "${PORT}:${PORT}"
+      - "${PORT:-8189}:${PORT:-8189}"           # Safe fallback
+    expose:
+      - "8189"                                  # Optional with 'ports', mostly for internal linking
+    environment:
+      - PORT=8189
     restart: unless-stopped
-    mem_limit: 600m
-    mem_reservation: 400m
-    cpus: 0.75
+    deploy:
+      resources:
+        limits:
+          memory: 600m
+          cpus: '0.75'
+        reservations:
+          memory: 400m
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8189/q/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
